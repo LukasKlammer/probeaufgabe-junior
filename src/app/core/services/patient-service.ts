@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
@@ -6,9 +7,14 @@ export class PatientService {
   private static readonly url = 'https://wildfhir4.aegis.net/fhir4-0-1/Patient';
   private static readonly defaultMimeType = '_format=application/fhir+json';
 
+  constructor (private http: HttpClient) {}
+
 
   get(count: number = 50): Observable<string> {
     const url = `${PatientService.url}?${PatientService.defaultMimeType}&_count=${count}&name=`;
+    // this.http.get<any[]>(url);
+    console.log(this.http.get<any[]>(url));
+
     return of('TODO: load patients...');
   }
 

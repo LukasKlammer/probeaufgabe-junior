@@ -13,5 +13,6 @@ export class DashboardComponent {
 
   constructor(private readonly patientService: PatientService) {
     this.patients$ = patientService.get();
+
   }
 }
