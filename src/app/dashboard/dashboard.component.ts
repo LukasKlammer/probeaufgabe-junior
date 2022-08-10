@@ -9,10 +9,15 @@ import { Observable } from "rxjs";
 })
 export class DashboardComponent {
 
-  patients$: Observable<string>;
+  // patients$: Observable<any>;
+  patients: any[] = [];
+
 
   constructor(private readonly patientService: PatientService) {
-    this.patients$ = patientService.get();
-
+    // this.patients$ = this.patientService.get();  // not more needed: we subscribe the observable, so we have no async in the
+    this.patientService.get().subscribe(pat => { // the statements in {} are called everytime when data changes
+      this.patients = pat.entry; // we need only the data in the entry named array, placed in the response from server
+      console.log(this.patients);
+    });
   }
 }

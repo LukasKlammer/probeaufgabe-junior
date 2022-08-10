@@ -4,6 +4,7 @@ import { DashboardComponent } from "./dashboard.component";
 import { CoreModule } from "../core/core-module";
 import { CommonModule } from "@angular/common";
 import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { MatCardModule } from '@angular/material/card';
     CommonModule,
     MaterialModule,
     CoreModule,
-    MatCardModule
+    MatCardModule,
+    MatProgressSpinnerModule
   ]
 })
 export class DashboardModule { }

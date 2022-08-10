@@ -1,9 +1,23 @@
 <mat-toolbar color="primary">Patient Management System</mat-toolbar>
 <mat-tab-group>
   <mat-tab label="Patients">
-    {{ patients$ | async }}
-    <mat-card>Hier zeigen wir den einzelnen Patient an.</mat-card>
 
+    <div class="spinner-wrapper" *ngIf="patients.length === 0">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <mat-card *ngFor="let patient of patients; let i = index" [class.deceased]="patient.resource.deceasedBoolean === true">
+      <mat-card-title>
+        <span *ngIf="patient.resource.name[0].given">{{ patient.resource.name[0].given[0] }} </span>
+        <span>{{ patient.resource.name[0].family }}</span>
+        <span>{{ patient.resource.name[0].text }}</span>
+      </mat-card-title>
+      <mat-card-content>
+        <span>Patient ID: {{ i }}</span><br>
+        <span *ngIf="patient.resource.birthDate">geboren am {{ patient.resource.birthDate }}</span><br>
+        <span *ngIf="patient.resource.deceasedBoolean === true">Patient ist verstorben.</span>
+      </mat-card-content>
+    </mat-card>
 
   </mat-tab>
   <mat-tab label="Practitioner"></mat-tab>

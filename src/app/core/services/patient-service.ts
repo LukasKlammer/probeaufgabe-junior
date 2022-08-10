@@ -7,15 +7,12 @@ export class PatientService {
   private static readonly url = 'https://wildfhir4.aegis.net/fhir4-0-1/Patient';
   private static readonly defaultMimeType = '_format=application/fhir+json';
 
-  constructor (private http: HttpClient) {}
+  constructor (private httpClient: HttpClient) {}
 
 
-  get(count: number = 50): Observable<string> {
+  get(count: number = 50): Observable<any> {
     const url = `${PatientService.url}?${PatientService.defaultMimeType}&_count=${count}&name=`;
-    // this.http.get<any[]>(url);
-    console.log(this.http.get<any[]>(url));
-
-    return of('TODO: load patients...');
+    return this.httpClient.get(url);
   }
 
   getById(id: string): Observable<string> {
