@@ -2,3 +2,20 @@ mat-divider {
   margin-top: 16px;
   margin-bottom: 16px;
 }
+
+h3 {
+  margin: 0;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.phone-button-box {
+  display: flex;
+  flex-direction: column;
+  margin: 12px;
+  gap: 12px;
+}

@@ -5,27 +5,52 @@
     <span>{{ patient.resource.name[0].text }}</span>
   </h1>
   <div mat-dialog-content>
-    <div>
-      <span>Patient Nummer: {{ i }}</span><br>
-      <span *ngIf="patient.resource.birthDate">geboren am {{ patient.resource.birthDate }}</span><br>
-      <span *ngIf="patient.resource.gender">Geschlecht: {{ gender }}</span><br>
-      <span *ngIf="patient.resource.deceasedBoolean === true">Patient ist verstorben. </span>
-      <span *ngIf="patient.resource.deceasedDateTime">verstorben am: {{ patient.resource.deceasedDateTime | date :
-        'dd.MM.y, HH:mm:ss' }} Uhr</span>
+    <div class="info">
+      <div>
+        <span>Patient Nummer: {{ i }}</span><br>
+        <span *ngIf="patient.resource.birthDate">geboren am {{ patient.resource.birthDate }}</span><br>
+        <span *ngIf="patient.resource.gender">Geschlecht: {{ gender }}</span><br>
+        <span *ngIf="patient.resource.deceasedBoolean === true">Patient ist verstorben. </span>
+        <span *ngIf="patient.resource.deceasedDateTime">verstorben am: {{ patient.resource.deceasedDateTime | date :
+          'dd.MM.y, HH:mm:ss' }} Uhr</span>
+      </div>
+      <div class="phone-button-box">
+        <ng-container *ngFor="let telecom of patient.resource.telecom">
+          <a *ngIf="telecom.system === 'phone'" [href]="'tel:' + telecom.value">
+            <button mat-raised-button color="primary">
+              <mat-icon fontIcon="call">call</mat-icon>
+              {{ telecom.value }}
+            </button>
+          </a>
+        </ng-container>
+      </div>
     </div>
-
     <div *ngIf="patient.resource.contact">
-      <mat-divider></mat-divider>
-      <h3>Kontakt:</h3>
-      <span *ngIf="patient.resource.contact[0].name">{{ patient.resource.contact[0].name.text }} </span>
-      <span *ngIf="patient.resource.contact[0].name">{{ patient.resource.contact[0].name.family }} </span>
-      <!-- <span *ngIf="patient.resource.contact[0].name[0]"> {{ patient.resource.contact[0].name.given[0] }} </span> -->
-      <!-- <span *ngIf="patient.resource.contact[0].name.given[0]"> Vorname vorhanden </span> -->
-      <span *ngIf="patient.resource.contact[0].relationship[0].coding[0].display"> - {{
-        patient.resource.contact[0].relationship[0].coding[0].display }}</span>
+      <div *ngIf="patient.resource.contact[0].name">
+        <mat-divider></mat-divider>
+        <h3>Kontakt:</h3>
+      </div>
+      <div *ngIf="patient.resource.contact[0].name" class="info">
+        <div>
+          <span>{{ patient.resource.contact[0].name.text }} </span>
+          <span>{{ patient.resource.contact[0].name.family }} </span>
+          <span *ngFor="let firstname of patient.resource.contact[0].name.given">{{ firstname }} </span>
+          <span *ngIf="patient.resource.contact[0].relationship[0].coding[0].display"> ({{
+            patient.resource.contact[0].relationship[0].coding[0].display }})</span>
+        </div>
+        <div class="phone-button-box">
+          <ng-container *ngFor="let phone of patient.resource.contact[0].telecom">
+            <a [href]="'tel:' + phone.value">
+              <button mat-raised-button color="primary">
+                <mat-icon fontIcon="call">call</mat-icon>
+                {{ phone.value }}
+              </button>
+            </a>
+          </ng-container>
+        </div>
+      </div>
     </div>
   </div>
-
   <div mat-dialog-actions>
     <button mat-button mat-dialog-close>
       <mat-icon fontIcon="close">close</mat-icon>
